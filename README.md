@@ -23,7 +23,8 @@ The QRiV package provides a robust and flexible framework, applicable to various
 
 ## Examples
 
-This repository includes an example to illustrate the method’s usage on real-world data -- The analysis of the **Cherry Blossom full bloom times in Japan (2024)**.
+This repository includes an example to illustrate the method’s usage on real-world data.
+* The analysis of the **Cherry Blossom full bloom times in Japan (2024)**.
 
 ## Installation
 
