@@ -22,6 +22,6 @@ This repository includes an example to illustrate the usage on real-world data.
 
 ---
 
-## Citation
+# Citation
 
 *(Will include the full citation here once our journal paper published.)*
