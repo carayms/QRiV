@@ -11,7 +11,7 @@ Our approach has novel estimation strategies:
 * **Kernel Smoothing:** We circumvent the difficulties of discontinuity inherent in quantile regression by employing kernel smoothing techniques.
 * **Complex Domain Extension:** We overcome the measurement errors problem by an extension of estimating equations to the **complex domain**, which is justified by the **Moment Generating Functions (MGFs)**.
 
-# Examples
+# Usage and Example
 
 This repository includes an example to illustrate the usage on real-world data.
 * The analysis of the **Cherry Blossom full bloom times in Japan (2024)**.
@@ -20,12 +20,8 @@ This repository includes an example to illustrate the usage on real-world data.
 
 *(Instructions on how to install or load the package/scripts go here. Python.)*
 
-## Usage
-
-*(Code snippets demonstrating the core function calls for estimation and replication go here.)*
-
 ---
 
 ## Citation
 
-*(Will include the full citation when ourr journal paper here once published.)*
+*(Will include the full citation here once our journal paper published.)*
