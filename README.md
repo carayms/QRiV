@@ -2,7 +2,7 @@
 
 This repository hosts the implementation for **Quantile Regression with Measurement Errors (QR-ME)** in covariates, a novel estimator designed to address the challenge in statistical modeling.
 
-Our approach has nice features:
+Our approach has features:
 * **General Applicability:** The method is valid for both **linear and nonlinear** quantile regression models; and
 * **Consistency Guaranteed:** The resulting estimator is shown to achieve the standard **root-_n_ consistency** and asymptotic normality under mild regularity conditions; and
 * **Flexible Quantile Requirements:** The method does not impose the often-restrictive requirement of simultaneous quantile estimation across multiple levels.
