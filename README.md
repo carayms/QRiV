@@ -16,7 +16,7 @@ Our approach has key estimation strategies:
 This repository includes an example to illustrate the usage on real-world data.
 * The analysis of the **Cherry Blossom full bloom times in Japan (2024)**.
 
-# Installation
+## Installation
 
 *(Instructions on how to install or load the package/scripts go here. Python.)*
 
