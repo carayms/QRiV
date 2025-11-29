@@ -15,17 +15,15 @@ Our approach is the first to achieve **consistent estimation** in this general Q
 The QRiV package provides a robust and flexible framework, applicable to various modeling scenarios:
 
 * **General Applicability:** The method is valid for both **linear and nonlinear** quantile regression models.
-* **Consistency Guaranteed:** The resulting estimator is shown to achieve the standard **root-$n$ consistency** and asymptotic normality under mild regularity conditions.
+* **Consistency Guaranteed:** The resulting estimator is shown to achieve the standard **root-_n_ consistency** and asymptotic normality under mild regularity conditions.
 * **Novel Estimation Strategy:**
     * **Kernel Smoothing:** We circumvent the difficulties of discontinuity inherent in quantile regression by employing kernel smoothing techniques.
-    * **Complex Domain Extension:** We overcome the intrinsic nonlinearity of the problem by considering an extension to the **complex domain** and utilizing **Moment Generating Functions (MGFs)**.
+    * **Complex Domain Extension:** We overcome the measurement errors of the problem by considering an extension to the **complex domain**, which is justified by **Moment Generating Functions (MGFs)** of the estimating equations.
 * **Flexible Quantile Requirements:** Our method does not impose the often-restrictive requirement of simultaneous quantile estimation across multiple levels.
 
 ## Examples
 
-This repository includes one example to illustrate the usage.
-
-* **Real Data Application:** The complete analysis of the **Cherry Blossom full bloom times in Japan (2024)**, demonstrating the method’s practical performance on real-world data.
+This repository includes an example to illustrate the method’s usage on real-world data -- The analysis of the **Cherry Blossom full bloom times in Japan (2024)**.
 
 ## Installation
 
@@ -37,6 +35,6 @@ This repository includes one example to illustrate the usage.
 
 ---
 
-## 📄 Citation
+## Citation
 
 *(Will include the full citation when ourr journal paper here once published.)*
