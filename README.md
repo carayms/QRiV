@@ -9,7 +9,7 @@ Our approach has key features:
 
 Our approach has novel estimation strategies:
 * **Kernel Smoothing:** We circumvent the difficulties of discontinuity inherent in quantile regression by employing kernel smoothing techniques.
-* **Complex Domain Extension:** We overcome the measurement errors problem by an extension of estimating equations to the **complex domain**, which is justified by the **Moment Generating Functions (MGFs)**.
+* **Complex Domain Extension:** We overcome the measurement error problem in covariates by an extension of the estimating equation to the **complex domain**, which is justified by the **Moment Generating Functions (MGFs)**.
 
 # Usage and Example
 
