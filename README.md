@@ -1,8 +1,6 @@
 # Introduction
 
-## QRiV: Quantile Regression with Normal Measurement Errors (QR-ME)
-
-This repository hosts the implementation for **QRiV**, a novel estimator designed to address a challenge in statistical modeling: **Quantile Regression (QR) in the presence of Normal Measurement Errors (ME) in covariates.**
+This repository hosts the implementation for **Quantile Regression with Normal Measurement Errors (QR-ME)** in covariates, a novel estimator designed to address a challenge in statistical modeling.
 
 Our approach has key features:
 * **General Applicability:** The method is valid for both **linear and nonlinear** quantile regression models; and
@@ -13,12 +11,12 @@ Our approach has novel estimation strategies:
 * **Kernel Smoothing:** We circumvent the difficulties of discontinuity inherent in quantile regression by employing kernel smoothing techniques.
 * **Complex Domain Extension:** We overcome the measurement errors problem by an extension of estimating equations to the **complex domain**, which is justified by the **Moment Generating Functions (MGFs)**.
 
-## Examples
+# Examples
 
 This repository includes an example to illustrate the usage on real-world data.
 * The analysis of the **Cherry Blossom full bloom times in Japan (2024)**.
 
-## Installation
+# Installation
 
 *(Instructions on how to install or load the package/scripts go here. Python.)*
 
