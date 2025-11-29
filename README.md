@@ -1,3 +1,7 @@
+| Title/Version | Author | Last Updated | Contact |
+| :--- | :--- | :--- | :--- |
+| **QRiV 1.0.0** | Mushan Li | 2025-11-29 | caray.msli@gmail.com |
+
 # 📐 QRiV: Quantile Regression with Normal Measurement Errors (QR-ME)
 
 This repository hosts the implementation for **QRiV**, a novel estimator designed to address a critical challenge in statistical modeling: **Quantile Regression (QR) in the presence of Normal Measurement Errors (ME) in covariates.**
