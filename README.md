@@ -1,6 +1,6 @@
 # Introduction
 
-This repository hosts the implementation for **Quantile Regression with Measurement Errors in covariates (QR-MEC)**, a novel estimator designed to address the challenge in statistical modeling.
+This repository hosts the implementation for **Quantile Regression with Measurement Errors in Covariates (QR-MEC)**, a novel estimator designed to address the challenge in statistical modeling.
 
 Our approach has features:
 * **General Applicability:** The method is valid for both **linear and nonlinear** quantile regression models; and
