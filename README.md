@@ -14,8 +14,12 @@ Our approach has key estimation strategies:
 ```
 QRiV/
 ├── simulations/
-│   ├── Simu_I.py
-│   ├── Simu_II.py
+│   ├── Simu_I_qriv.py
+│   ├── Simu_I_weic.py
+│   ├── Simu_I_clet.py
+│   ├── Simu_II_qriv.py
+│   ├── Simu_II_weic.py
+│   ├── Simu_II_clet.py
 │   ├── Simu_III.py
 │   └── Simu_IV.py
 ├── utils/
