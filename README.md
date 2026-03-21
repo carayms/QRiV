@@ -11,11 +11,6 @@ Our approach has key estimation strategies:
 * **Kernel Smoothing:** We circumvent the difficulties of discontinuity inherent in the quantile loss by employing kernel smoothing techniques.
 * **Complex Domain Extension:** We overcome the measurement error problem in covariates by adding a “cancel variate” $`\sqrt{-1}`$__V__, which extends the estimating equation to the **complex domain**.
 
-## Usage and Example
-
-This repository includes an example to illustrate the usage on real-world data.
-* The analysis of the **Cherry Blossom waiting time in Japan (2024)**.
-
 ## Folder Structure
 simulation_project/                 ← root of repository
 ├── simulations/
@@ -34,7 +29,10 @@ simulation_project/                 ← root of repository
 ├── README.md
 ├── requirements.txt
 └── .gitignore
+## Usage and Example
 
+This repository includes an example to illustrate the usage on real-world data.
+* The analysis of the **Cherry Blossom waiting time in Japan (2024)**.
 ---
 
 # Citation
