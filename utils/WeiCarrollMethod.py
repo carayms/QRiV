@@ -22,7 +22,7 @@ def weicarroll_qr(tau_ist, extendtau, obvrs_in, y_in, sdu_in, bds, maxiter = 20,
         w_in = obvrs_in[:, 1]
 
     if w_in.min() <= 0:
-        sft_size = -w_in.min() + 1.0#w_in.max() - w_in.min() #+ 2
+        sft_size = -w_in.min() + 1.0
     else:
         sft_size = 0
 
@@ -38,7 +38,7 @@ def weicarroll_qr(tau_ist, extendtau, obvrs_in, y_in, sdu_in, bds, maxiter = 20,
     rnum = int(n/5)
     rng_u = np.random.default_rng(seed=21)
     rx = rng_u.normal(loc = w_in.mean(), scale = sdu_in, size=rnum)
-    w1 = rng_u.normal(loc = rx, scale = sdu_in, size=rnum)#rnorm(rnum ,sd=sdu);
+    w1 = rng_u.normal(loc = rx, scale = sdu_in, size=rnum)
     w2 = rng_u.normal(loc = rx, scale = sdu_in, size=rnum)
     tw1 = trans(w1, est_power); tw2 = trans(w2, est_power)
     sduhat = np.sqrt(np.var(tw1-tw2, ddof = 1)/2)
@@ -140,9 +140,6 @@ def weicarroll_qr(tau_ist, extendtau, obvrs_in, y_in, sdu_in, bds, maxiter = 20,
         for idx_ct, ct in enumerate(extendtau[1:-1]):
             ini_prs = beta_grid[idx_ct]
             qloss_method = minimize(quantile_loss, ini_prs, args=(X_ones, Y, ct, WTs), method=min_method, tol = 1e-15, bounds = bds)
-            #smoth_method = root(weighted_rho_prime_smooth, ini_prs, args=(X_ones, Y, ct, WTs, bds), method='hybr', tol = 1e-10)
-            #prime_method = minimize(weighted_rho_prime, ini_prs, args=(X_ones, Y, ct, WTs), method='L-BFGS-B', tol = 1e-6)
-            #root(weighted_rho_prime, ini_prs, args=(X_ones, Y, ct, WTs), method='hybr', tol = 1e-3)
             qr_res = qloss_method#smoth_method#qloss_method #smoth_method #prime_method#
             #qloss_method
             
@@ -171,7 +168,6 @@ def weicarroll_qr(tau_ist, extendtau, obvrs_in, y_in, sdu_in, bds, maxiter = 20,
     beta_weicar = ftau(tau_ist)
     
     print('-----beta_weicar->', beta_weicar, 'niter-> %s; err-> %.5f' % (niter, itrdiff) )
-    #rtn_dict = {'x':beta_weicar, ''}
     return beta_weicar
 
 #@nb.jit(nopython=True)
@@ -184,8 +180,6 @@ def fxdw_den2(xc, y_i, coeffs, cf_in, tauext, tauext_diff, len_end):
     # predicted y|{current (1, x)}
     cf_in[1:-1] = np.dot(coeffs, cdt)
 
-    #print('cdt', cdt, coeffs.shape, cf_in[:3], cf_in[-3:])
-    #input(cdt.shape)
     
     # approx tau of y_i at, i.e. tau quantile of y|(current x)
     ytau = np.interp(y_i, cf_in, tauext)
@@ -200,16 +194,6 @@ def fxdw_den2(xc, y_i, coeffs, cf_in, tauext, tauext_diff, len_end):
 
         den2 = tauext_diff[0]/ botm
     
-    #if botm == 0:
-    #    den2 = max(tauext_diff[0]/1e-10, 0)
-    #lse:
-    #   den2 = max(tauext_diff[0]/botm, 0)
-
-    #ypos = min(bisect_right(tauext, ytau), len_end)
-    #ypos = max(ypos, 1)
-    
-    #botm = max(cf_in[ypos]-cf_in[ypos-1], 1e-10)
-    #den2 = max(tauext_diff[ypos-1]/botm, 0)
     return den2
 
 #@nb.jit(nopython=True)
@@ -231,11 +215,8 @@ def fxdw_den2_outfor(J, y_in, m_in, CF_in, coeffs, steps, tauext, tauext_diff, l
     return fmatrix
 
 def fxdw_den2_outfor_v2(J, y_in, m_in, CF_in, coeffs, steps, tauext, tauext_diff, len_end, xgrid, DEN1_all, fmatrix):
-    #fxdw_den2_outfor(J, y_in, m_all, CF, beta_grid, delta, extendtau, extendtau_diff, len_limit, xgrid, DEN1_all)
-    #I = y_in.size
-    #fmatrix = np.zeros((I, J)) 
     for i, yi in enumerate(y_in):
-        #yi = y_in[i]
+    
         m = m_in[i] 
         DEN2 = np.array([fxdw_den2(xi, yi, coeffs, CF_in, tauext, tauext_diff, len_end) for xi in xgrid[i, :]])
         DEN1 = DEN1_all[i]
@@ -255,8 +236,6 @@ def quantile_loss(params, x, y, tau, weights):
     residuals = y - np.dot(x,params)
     theloss = np.maximum(tau * residuals, (tau - 1) * residuals)
     wted_loss = theloss * np.clip(weights, 1e-10, np.inf)
-
-    #print('%s out of %s are positive...' % (sum(posflg), y.size))
     return wted_loss.mean()
 
 
@@ -267,7 +246,7 @@ def weighted_rho_prime_smooth(params, x, y, tau, weights, bds):
             return rtn
 
     residuals = y - np.dot(x,params)
-    bandwth = np.std(residuals, ddof = 1) * y.size ** (-1/3) * 20; #print('bandwth', bandwth)
+    bandwth = np.std(residuals, ddof = 1) * y.size ** (-1/3) * 20; 
 
     psi = tau - 1 + sps.norm.cdf(residuals/bandwth, loc = 0, scale = bandwth)
     wted_psi = psi * weights
@@ -277,7 +256,6 @@ def weighted_rho_prime_smooth(params, x, y, tau, weights, bds):
 
 def weighted_rho_prime(params, x, y, tau, weights):
     residuals = y - np.dot(x,params)
-    #bandwth = np.std(residuals, ddof = 1) * y.size ** (-1/3) * 5; #print('bandwth', bandwth)
     neg = residuals < 0
     print(neg.sum(), neg.shape)
     input('neg')
