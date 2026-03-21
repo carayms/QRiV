@@ -16,22 +16,23 @@ Our approach has key estimation strategies:
 This repository includes an example to illustrate the usage on real-world data.
 * The analysis of the **Cherry Blossom waiting time in Japan (2024)**.
 
-QRiV/
+```text
+simulation_project/                 ← root of repository
 ├── simulations/
-│   ├── Simu_I.py
-│   ├── Simu_II.py
-│   ├── Simu_III.py
-│   └── Simu_IV.py
+│   ├── sim_1.py
+│   ├── sim_2.py
+│   ├── sim_3.py
+│   └── sim_4.py
 ├── utils/
-│   ├── QRfuncV1.py
-│   └── realDatFuncs.py
-├── 2024JCherryBlossoms_SimuV/
-│   ├── J.cherry.blossoms_2024-02.29-03.18_predi-meter.tempmean-_by.14-18.days.csv
-│   ├── 2024_realDat_analysis.py
-│   ├── SIMEX_bdwSlec_SimuV.py
-│   └── 2024_mimic_SimuV.py
+│   ├── __init__.py
+│   ├── plotting.py
+│   ├── physics.py
+│   ├── statistics.py
+│   ├── io_utils.py
+│   └── helpers.py
+├── main.py                         ← (optional)
 ├── README.md
-├── LICENSE
+├── requirements.txt
 └── .gitignore
 
 ---
