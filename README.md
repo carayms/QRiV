@@ -13,6 +13,8 @@ Our approach has key estimation strategies:
 
 ## Folder Structure
 
+```
+
 QRiV/
 ├── simulations/
 │   ├── Simu_I.py
