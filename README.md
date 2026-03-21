@@ -10,8 +10,7 @@ Our approach has features:
 Our approach has key estimation strategies:
 * **Kernel Smoothing:** We circumvent the difficulties of discontinuity inherent in the quantile loss by employing kernel smoothing techniques.
 * **Complex Domain Extension:** We overcome the measurement error problem in covariates by adding a “cancel variate” $`\sqrt{-1}`$__V__, which extends the estimating equation to the **complex domain**.
-
-## Folder Structure
+  
 ```
 QRiV/
 ├── simulations/
