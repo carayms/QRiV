@@ -12,22 +12,23 @@ Our approach has key estimation strategies:
 * **Complex Domain Extension:** We overcome the measurement error problem in covariates by adding a “cancel variate” $`\sqrt{-1}`$__V__, which extends the estimating equation to the **complex domain**.
 
 ## Folder Structure
-simulation_project/                 # ← root of repository
+
+QRiV/
 ├── simulations/
-│   ├── sim_1.py
-│   ├── sim_2.py
-│   ├── sim_3.py
-│   └── sim_4.py
+│   ├── Simu_I.py
+│   ├── Simu_II.py
+│   ├── Simu_III.py
+│   └── Simu_IV.py
 ├── utils/
-│   ├── init.py                 # important for package imports!
-│   ├── plotting.py
-│   ├── physics.py
-│   ├── statistics.py
-│   ├── io_utils.py
-│   └── helpers.py
-├── main.py                         # (optional) launcher script
+│   ├── QRfuncV1.py
+│   └── realDatFuncs.py
+├── 2024JCherryBlossoms_SimuV/
+│   ├── J.cherry.blossoms_2024-02.29-03.18_predi-meter.tempmean-_by.14-18.days.csv
+│   ├── 2024_realDat_analysis.py
+│   ├── SIMEX_bdwSlec_SimuV.py
+│   └── 2024_mimic_SimuV.py
 ├── README.md
-├── requirements.txt
+├── LICENSE
 └── .gitignore
 
 
