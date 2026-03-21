@@ -16,7 +16,7 @@ Our approach has key estimation strategies:
 This repository includes an example to illustrate the usage on real-world data.
 * The analysis of the **Cherry Blossom waiting time in Japan (2024)**.
 
-```text
+## Folder Structure
 simulation_project/                 ← root of repository
 ├── simulations/
 │   ├── sim_1.py
