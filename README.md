@@ -12,9 +12,7 @@ Our approach has key estimation strategies:
 * **Complex Domain Extension:** We overcome the measurement error problem in covariates by adding a “cancel variate” $`\sqrt{-1}`$__V__, which extends the estimating equation to the **complex domain**.
 
 ## Folder Structure
-
 ```
-
 QRiV/
 ├── simulations/
 │   ├── Simu_I.py
@@ -32,15 +30,9 @@ QRiV/
 ├── README.md
 ├── LICENSE
 └── .gitignore
+```
 
-
-
-## Usage and Example
-
-This repository includes an example to illustrate the usage on real-world data.
-* The analysis of the **Cherry Blossom waiting time in Japan (2024)**.
 ---
-
 # Citation
 
 *(Will include the full citation here once our journal paper published.)*
