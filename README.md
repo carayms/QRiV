@@ -14,7 +14,7 @@ Our approach has key estimation strategies:
 # Usage and Example
 
 This repository includes an example to illustrate the usage on real-world data.
-* The analysis of the **Cherry Blossom full bloom times in Japan (2024)**.
+* The analysis of the **Cherry Blossom waiting time in Japan (2024)**.
 
 ---
 
