@@ -12,7 +12,6 @@ import matplotlib.gridspec as gridspec
 from matplotlib.colors import LinearSegmentedColormap
 from sklearn.preprocessing import MinMaxScaler
 from scipy.special import logit, expit
-
 from scipy.optimize import minimize, root
 import scipy.special as spsp
 import scipy.stats as sps
@@ -21,21 +20,18 @@ import scipy.stats as sps
 def quantile_loss_rdt(params, x, y, tau, gtype = 'none'):
     if gtype == 'none':
         raise ValueError(f"[gtype] must be specified, not {gtype}")
-
     residuals = y - rdt_mfunc(params, x, gtype)
     rtn = np.mean(np.maximum(tau * residuals, (tau - 1) * residuals))
     return rtn
 
 
 def rdt_mfunc(prs, cvats, gtype = 'cherry'):
-
     if gtype == 'cherry':
         mfc = prs[0]*100 + prs[1]*cvats.T[0] + \
               prs[2]*np.log(cvats.T[1])*10 + \
               prs[3]*cvats.T[2] + prs[4]*cvats.T[3] + prs[5]*cvats.T[4]
     else:
         raise ValueError(f"[gtype] must be specified, not {gtype}")
-
     return mfc
 
 def gener_mfunc_v2(prs, x_ls, ers, gtype = 'none'):
@@ -46,7 +42,6 @@ def gener_mfunc_v2(prs, x_ls, ers, gtype = 'none'):
 def est_eqs_loop_jstcal_v2(prs, h_ker, Y, Ws, u_std, Quadts, qtl, bds, gtype = 'none'):
     if gtype == 'none':
         raise ValueError(f"[gtype] must be specified, not {gtype}")
-
     for iprs, (ia, ib) in zip(prs, bds):
         if (iprs - ia) * (iprs - ib) > 0:
             rtn = np.ones(prs.size) * 9999999
@@ -67,16 +62,13 @@ def est_eqs_loop_jstcal_v2(prs, h_ker, Y, Ws, u_std, Quadts, qtl, bds, gtype = '
         varib_X2 =  np.log(extrop_X2)*10
 
         SQ = np.add.outer(prs[1]*extrop_X1, prs[2]*varib_X2, dtype = np.complex128)
-
         mfunc = prs[0]*100 + SQ + prs[3]*O_i[2] +prs[4]*O_i[3]+prs[5]*O_i[4]
-
 
         phi_in = Y[idx_o] - mfunc
         phi_in_scl = phi_in/h_ker
 
         phi_out = sps.norm.cdf(phi_in_scl, loc = 0, scale = 1) + qtl - 1
         phi_out += phi_in * sps.norm.pdf(phi_in_scl, loc = 0, scale = 1)/h_ker
-
 
         eq1s = phi_out
         eq2s = phi_out * np.expand_dims(extrop_X1, axis = 1)
@@ -102,12 +94,7 @@ def bs_std_cvg(orgests, truep, bs_ests, lvl = 0.975):
     return bs_std, CI_flag
 
 if __name__=="__main__":
-    n_repts = 1050
-
-    v_a, v_b = [2.0, -0.1]
-    prs_truth = np.array([1.5, -0.7, -3.2, -0.1, 0.7, -0.1])
-
-    run_type = 'hpc..'
+    run_type = 'hpc'
     if run_type == 'hpc':
         prl_a = int(sys.argv[1])
         prl_b = int(sys.argv[2])
@@ -122,20 +109,16 @@ if __name__=="__main__":
         tol = 1e-7
         tuning = 12
         npsd_data = 1652
-
-
-
-    tol_hybr = tol
-
-    mdl_type = ['trigonometric', 'square', 'linear', 'cherry'][-1]
-    
-
-
-
+        
+    n_repts = 1050
     n = 1000
+    v_a, v_b = [2.0, -0.1]
+    prs_truth = np.array([1.5, -0.7, -3.2, -0.1, 0.7, -0.1])
     n_prs = prs_truth.size
     n_bs = 200
 
+    tol_hybr = tol
+    mdl_type = ['trigonometric', 'square', 'linear', 'cherry'][-1]
 
     write_flag = [None, False, True][-1]
     bstrp_std_indicator = [True, False][0]
@@ -150,21 +133,17 @@ if __name__=="__main__":
     # merr_error settings
     merr_mean = np.zeros(2)
     merr_covs = np.diag([3.88, 1.85])
-
     merr_std_all = np.diag(merr_covs)**0.5
     # algo set up
     optm_method = ['L-BFGS-B', 'Nelder-Mead', 'Powell', 'TNC'][0]
     bounds = np.tile([-100, 100], n_prs).reshape(n_prs, 2)
 
-
     #--------select one date
-
     #npsd_data = 1652
     rng = np.random.default_rng(npsd_data)
     rng_seed = rng.choice(np.arange(999999), size=n_repts, replace=False)
 
-    ini_seeds = np.random.default_rng(seed=0).choice(np.arange(1000000),
-                                                               size=n_repts, replace=False)
+    ini_seeds = np.random.default_rng(seed=0).choice(np.arange(1000000), size=n_repts, replace=False)
     # ---- bootstrap and inin
     npsd_bstrp = 99
     org_idx = np.arange(n) # this is needed for btsrp
@@ -181,11 +160,8 @@ if __name__=="__main__":
     npsd_merr = 1999
     npsd_eps = 1655
 
-
-    eps_seed = np.random.default_rng(seed=npsd_eps).choice(np.arange(1000000),
-                                                               size=n_repts, replace=False)
-    mer_seed = np.random.default_rng(seed=npsd_merr).choice(np.arange(1000000),
-                                                               size=n_repts, replace=False)
+    eps_seed = np.random.default_rng(seed=npsd_eps).choice(np.arange(1000000), size=n_repts, replace=False)
+    mer_seed = np.random.default_rng(seed=npsd_merr).choice(np.arange(1000000), size=n_repts, replace=False)
 
     #------ creat the output files destination
     output_dir = '%s_tau%s_tol%.e_dtnpsd.%s_n.%s_bstrp%s.npsd.%s' % ('MultiXZ', tau, tol, npsd_data, n, n_bs, npsd_bstrp)
@@ -262,7 +238,6 @@ if __name__=="__main__":
         obvrs = np.column_stack([obs_ws, obsvrZ1, obsvrZ23])
 
 
-
         if (idx_rpts - prl_a) * (idx_rpts - prl_b) > 0:
             #print('no')
             continue
@@ -270,13 +245,10 @@ if __name__=="__main__":
             pass
 
 
-
-        predi_res = minimize(quantile_loss_rdt, ini_prs, args=(unobvrs, respo, tau, mdl_type),method=optm_method,#'Nelder-Mead',
-                                 tol = tol, bounds = bounds)
+        predi_res = minimize(quantile_loss_rdt, ini_prs, args=(unobvrs, respo, tau, mdl_type),method=optm_method, tol = tol, bounds = bounds)
         predi_est = ['%.4f' % i for i in predi_res.x]
 
-        naive_res = minimize(quantile_loss_rdt, ini_prs, args=(obvrs, respo, tau, mdl_type),method=optm_method,
-                                 tol = tol, bounds = bounds)
+        naive_res = minimize(quantile_loss_rdt, ini_prs, args=(obvrs, respo, tau, mdl_type),method=optm_method, tol = tol, bounds = bounds)
         naive_est = ['%.4f' % i for i in naive_res.x]
 
          # smoothe
@@ -286,9 +258,9 @@ if __name__=="__main__":
         #print(f"h_kern->{h_kern}")
 
         #propo_ini = [naive_est.x, predi_est.x][0]
-        propo_res_navini = root(est_eqs_loop_jstcal_v2, x0 = naive_res.x,#propo_ini*pert_noz[-1],#predi_est.x,#naive_est, #ini_prs,
+        propo_res_navini = root(est_eqs_loop_jstcal_v2, x0 = naive_res.x,
                           method='hybr', tol = tol_hybr, args = (h_kern, respo, obvrs, merr_std_all, quadratures, tau, bounds, mdl_type))
-        propo_res_prdini = root(est_eqs_loop_jstcal_v2, x0 = predi_res.x,#propo_ini*pert_noz[-1],#predi_est.x,#naive_est, #ini_prs,
+        propo_res_prdini = root(est_eqs_loop_jstcal_v2, x0 = predi_res.x,
                           method='hybr', tol = tol_hybr,
                                 args = (h_kern, respo, obvrs, merr_std_all, quadratures, tau, bounds, mdl_type))
 
@@ -304,9 +276,6 @@ if __name__=="__main__":
         if idx_rpts == 0:
             print(f'-----> propo by navini status:{propo_res_navini.status}, success:{propo_res_navini.success}, message:{ propo_res_navini.message}')
             print(f'\n---> fun.loss:{propo_res_navini.fun.round(2)}')
-
-
-
             print(f"tau->{tau}")
             print(f"naive_est{sep_chr}{sep_chr.join(naive_est)}")
             print(f"errfe_est{sep_chr}{sep_chr.join(predi_est)}")
@@ -318,13 +287,9 @@ if __name__=="__main__":
         bstrp_propo_res = []
         bstrp_naive_res = []
         bstrp_errfre_res = []
-
-
-
+        
         if bstrp_std_indicator:
-
             rng_bstrp = np.random.default_rng(seed=rng_bstrp_seed[idx_rpts])
-
             while proposed_flag:
                 btstrp_choice = rng_bstrp.choice(org_idx, size=n, replace=True)
 
@@ -332,24 +297,18 @@ if __name__=="__main__":
                 bs_obvrs = obvrs[btstrp_choice]
                 bs_unobvrs = unobvrs[btstrp_choice]
 
-
-
                 if proposed_flag:
                     # naive method
                     bs_naive_est = minimize(quantile_loss_rdt, ini_prs, args=(bs_obvrs, bs_y, tau, mdl_type),method=optm_method,
                                  tol = tol, bounds = bounds)
-
                     bs_predi_est = minimize(quantile_loss_rdt, ini_prs, args=(bs_unobvrs, bs_y, tau, mdl_type),method=optm_method,
                                  tol = tol, bounds = bounds)
 
                     bs_ini_prs = propo_res_navini.x
-                    bs_method = root(est_eqs_loop_jstcal_v2, x0 = bs_ini_prs,#naive_est, #ini_prs,
+                    bs_method = root(est_eqs_loop_jstcal_v2, x0 = bs_ini_prs,
                           method='hybr', tol = tol_hybr, args = (h_kern, bs_y, bs_obvrs, merr_std_all, quadratures, tau, bounds, mdl_type))
 
-
-
                     if bs_method.success == True:
-                    #if True:
                         bstrp_propo_res.append( bs_method.x )
                         bstrp_naive_res.append( bs_naive_est.x )
                         bstrp_errfre_res.append( bs_predi_est.x )
