@@ -60,7 +60,6 @@ def approx_step_func(epsilon, bw_h, smooth_name = 'normcdf'):
         rtn = 1.0/(1+np.exp(-eps_scld))
     elif smooth_name == 'algebric':
         rtn = 0.5 + 0.5*eps_scld/np.sqrt(1 + eps_scld**2)
-
     else:
         input('smooth_name not found!')
 
@@ -68,10 +67,8 @@ def approx_step_func(epsilon, bw_h, smooth_name = 'normcdf'):
 
 def approx_step_func_deri(epsilon, bw_h, smooth_name = 'normcdf'):
     eps_scld = epsilon/bw_h
-    
     if smooth_name == 'normcdf':
         rtn = sps.norm.pdf(eps_scld, loc = 0, scale = 1) / bw_h
-
     elif smooth_name == 'logistic':
         fval = 1.0/(1+np.exp(-eps_scld))
         rtn = fval * (1 - fval) /bw_h
@@ -97,14 +94,12 @@ def deri_func(x_ls, xmat_shape, gtype = 'linear', prs = None):
     elif gtype == 'square':
         rtn = np.ones(xmat_shape)
         rtn[:, 1] = x_ls.T[1]**2
-
     elif gtype == 'trigonometric':
         rtn = np.ones(xmat_shape)
         rtn[:, 1] = np.sin(prs[2] * x_ls.T[1])
         rtn[:, 2] = prs[1]*prs[2]*np.cos(prs[2] * x_ls.T[1])
     else:
         input('m(x) not found!')
-
     return -rtn
 
 # Define the quantile loss function
@@ -113,28 +108,21 @@ def quantile_loss_v2(params, x, y, tau, gtype = 'linear'):
     return np.mean(np.maximum(tau * residuals, (tau - 1) * residuals))
 
 def corected_qloss(prs, Y, covrits, u_std, qtl, h_krl, treturn = 'meanLoss'):
-
     mfuc_w = gener_mfunc_v2(prs, covrits, 0, gtype = 'linear')
     epsi_w = Y - mfuc_w
     epsi_w_srtidx = np.argsort(epsi_w)
-
     cst_part = epsi_w*(qtl - 0.5)
-
-    y_grid = np.arange(1e-5, 1/h_krl+1e-5, v_step)#.reshape(1, n_of_y)
+    y_grid = np.arange(1e-5, 1/h_krl+1e-5, v_step)
     n_of_y = y_grid.size
     y_eps = np.outer(epsi_w, y_grid)
-
     #input(y_eps.shape)
     u_var = (prs[1]*u_std)**2    
     ingrd = (1/y_grid * np.expand_dims(epsi_w, axis = 1) * np.sin(y_eps) - u_var*np.cos(y_eps)) * np.exp(y_grid**2 * u_var * 0.5)/np.pi
-
     A_func_val = cst_part + ingrd.sum(axis = 1) * v_step
-
     if treturn == 'meanLoss':
         rtns = np.mean(A_func_val)
     else:
         rtns = A_func_val
-
     return rtns
 
 def eps_std(coefs, x_ls, dep_fun = 'linear'):
@@ -173,9 +161,7 @@ def est_eqs_loop_jstcal_v2(prs, h_ker, Y, Ws, u_std, Quadts, qtl, bds, gtype = '
         body_V = 1j * u_std * tj
 
         extrop_X = np.add.outer(W, body_V)
-
         mfunc = prs[0] + prs[1] * extrop_X 
-
         phi_in = np.expand_dims(Y, axis = 1) - mfunc
         phi_in_scl = phi_in/h_ker
 
@@ -185,25 +171,19 @@ def est_eqs_loop_jstcal_v2(prs, h_ker, Y, Ws, u_std, Quadts, qtl, bds, gtype = '
         eq0s = phi_out 
         eq1s = phi_out * extrop_X 
         eq_forming = np.array([eq0s, eq1s]) * wtj
-
-    
         outer_eqs = eq_forming.sum(axis = 2)
 
     elif gtype == 'square':
         W = Ws[:, 1]
         tj, wtj = Quadts
         body_V = 1j * u_std * tj
-
         extrop_X = np.square(np.add.outer(W, body_V))
-
         mfunc = prs[0] + prs[1] * extrop_X
 
         phi_in = np.expand_dims(Y, axis = 1) - mfunc
         phi_in_scl = phi_in/h_ker
         #print(phi_in_scl.shape)
-
         phi_out = sps.norm.cdf(phi_in_scl) + qtl - 1
-
         phi_out += phi_in * sps.norm.pdf(phi_in_scl, loc = 0, scale = 1)/h_ker
         eq0s = phi_out 
         eq1s = phi_out * extrop_X 
@@ -217,19 +197,14 @@ def est_eqs_loop_jstcal_v2(prs, h_ker, Y, Ws, u_std, Quadts, qtl, bds, gtype = '
         body_V = 1j * u_std * tj
 
         extrop_X = np.add.outer(W, body_V)
-
         mfunc = prs[0] + prs[1] * np.sin(prs[2] * extrop_X)
-
         phi_in = np.expand_dims(Y, axis = 1) - mfunc
         phi_in_scl = phi_in/h_ker
         #print(phi_in_scl.shape)
 
         phi_out = sps.norm.cdf(phi_in_scl) + qtl - 1
-
         phi_out += phi_in * sps.norm.pdf(phi_in_scl, loc = 0, scale = 1)/h_ker
-
         eq0s = phi_out 
-    
         eq1s = phi_out * np.sin(prs[2] * extrop_X)
         eq2s = phi_out * prs[1]*prs[2]*np.cos(prs[2] * extrop_X) 
         eq_forming = np.array([eq0s, eq1s, eq2s]) * wtj
