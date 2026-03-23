@@ -28,8 +28,7 @@ QRiV/
 │   ├── 2024_mimic_SimuV.py
 │   └── SIMEX_bdwSlec_SimuV.py
 ├── README.md
-├── LICENSE
-└── .gitignore
+└── LICENSE
 ```
 
 ---
