@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 import matplotlib as mpl
 mpl.use('TkAgg')
-# Force DejaVu Sans (it supports basic Unicode flowers)
 mpl.rcParams['font.family'] = ['DejaVu Sans', 'Arial'][1]
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
