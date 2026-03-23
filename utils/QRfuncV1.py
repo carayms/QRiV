@@ -38,16 +38,14 @@ def trans(val, power):
 
 def gener_mfunc_v2(prs, x_ls, ers, gtype = 'none'):
     if gtype == 'linear':
-        if type(ers) == int and ers == 0:
-            rtn = np.sum(prs*x_ls, axis = 1)
-        else:
-            rtn = np.sum(prs*x_ls, axis = 1) + ers
+        rtn = np.sum(prs*x_ls, axis = 1)
     elif gtype == 'square':
-        rtn = prs[0] + prs[1] * x_ls.T[1]**2 + ers
+        rtn = prs[0] + prs[1] * x_ls.T[1]**2
     elif gtype == 'trigonometric':
-        rtn = prs[0] + prs[1]*np.sin(prs[2] * x_ls.T[1]) + ers
+        rtn = prs[0] + prs[1]*np.sin(prs[2] * x_ls.T[1])
     else:
         input('m(x) not found!')
+    rtn += ers
     return rtn
 
 def approx_step_func(epsilon, bw_h, smooth_name = 'normcdf'):
