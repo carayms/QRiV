@@ -10,7 +10,6 @@ from pandas.core.common import random_state
 mpl.use('TkAgg')
 # === Set global font ===
 
-# Force DejaVu Sans (it supports basic Unicode flowers)
 mpl.rcParams['font.family'] = ['DejaVu Sans', 'Arial'][1]
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
@@ -18,7 +17,6 @@ import matplotlib.colors as mcolors
 #import cartopy.feature as cfeature
 import matplotlib.gridspec as gridspec
 from matplotlib.colors import LinearSegmentedColormap
-# import counter class from collections module
 from collections import Counter
 from sklearn.preprocessing import MinMaxScaler
 from scipy.special import logit, expit
@@ -30,38 +28,28 @@ import scipy.special as spsp
 import scipy.stats as sps
 
 from numba import jit
-
-#from numba_stats import norm
-
 import realDataRuncs as Funcs
 import importlib
 importlib.reload(Funcs)
 import pickle
 
-#from QRfuncV1 import quantile_loss_v2
 
 def quantile_loss_rdt(params, x, y, tau, gtype = 'none'):
     if gtype == 'none':
         raise ValueError(f"[gtype] must be specified, not {gtype}")
 
     residuals = y - rdt_mfunc(params, x, gtype)
-    #posflg = residuals >= 0
-    #print('%s out of %s are positive...' % (sum(posflg), y.size))
     rtn = np.mean(np.maximum(tau * residuals, (tau - 1) * residuals))
     return rtn
 
 
 def rdt_mfunc(prs, cvats, gtype = 'cherry'):
-    #print(prs.shape, cvats.shape)
-    # 1, temp_mean  meter  precipitation        lat         lon
-    #
     if gtype == 'cherry':
         mfc = prs[0]*100 + prs[1]*cvats.T[0] + \
               prs[2]*np.log(cvats.T[1])*10 + \
               prs[3]*cvats.T[2] + prs[4]*cvats.T[3] + prs[5]*cvats.T[4]
     else:
         raise ValueError(f"[gtype] must be specified, not {gtype}")
-
     return mfc
 
 def gener_mfunc_v2(prs, x_ls, ers, gtype = 'none'):
@@ -96,16 +84,11 @@ def est_eqs_loop_jstcal_v2(prs, h_ker, Y, Ws, u_std, Quadts, qtl, bds, gtype = '
 
         mfunc = prs[0]*100 + SQ + prs[3]*O_i[2] +prs[4]*O_i[3]+prs[5]*O_i[4]
 
-
         phi_in = Y[idx_o] - mfunc
         phi_in_scl = phi_in/h_ker
-        #print(phi_in_scl.shape)
 
         phi_out = sps.norm.cdf(phi_in_scl, loc = 0, scale = 1) + qtl - 1
         phi_out += phi_in * sps.norm.pdf(phi_in_scl, loc = 0, scale = 1)/h_ker
-
-        #phi_out = norm.cdf(phi_in_scl, 0.0, 1.0) + qtl - 1
-        #phi_out += phi_in * norm.pdf(phi_in_scl, loc = 0, scale = 1)/h_ker
 
         eq1s = phi_out
         eq2s = phi_out * np.expand_dims(extrop_X1, axis = 1)
@@ -113,22 +96,10 @@ def est_eqs_loop_jstcal_v2(prs, h_ker, Y, Ws, u_std, Quadts, qtl, bds, gtype = '
         eq4s = phi_out * O_i[2]
         eq5s = phi_out * O_i[3]
         eq6s = phi_out * O_i[4]
-
-        #eq_forming = np.array([eq1s, eq2s, eq3s, eq4s]) * wts
         eq_forming = np.array([eq1s, eq2s, eq3s, eq4s, eq5s, eq6s]) * wts
-        #q_forming = np.array([eq1s, eq2s, eq3s, eq4s, eq5s]) * wts
-
         outer_eqs[idx_o] = np.sum(eq_forming.real, axis = (1, 2))
 
-
-
     rtns = np.mean(outer_eqs, axis = 0)
-
-    #outer_eqs_in = np.zeros([len(Ws), prs.size])
-
-    #input(rtns)
-    #......
-
     return rtns
 
 if __name__=="__main__":
@@ -407,9 +378,7 @@ if __name__=="__main__":
     # Add the legend to the independent axes
     legend_ax.legend(handles=legend_elements, loc='center', fontsize = 12)
 
-
     plt.savefig(f'Fig_centering.{ctring_flag}_realdat{tau}_by.rdmOne.pdf')
-
 
 
     catgs = ['est', r'$\wh{\rm std}$', r'$p$-value']
@@ -430,6 +399,4 @@ if __name__=="__main__":
                 reform_line = [ec if float(ec) != 0.0 else '0.0' for ec in reform_line]
                 line = rf"{method} & {' & '.join(reform_line)} \\"
             print(line)
-
-    plt.show()
 
