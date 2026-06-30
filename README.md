@@ -1,4 +1,6 @@
-# Introduction
+## Quantile Regression with Measurement Errors
+
+### Introduction
 
 This repository hosts the implementation for **Quantile Regression with Measurement Errors in Covariates (QR-MEC)**.
 
@@ -32,6 +34,19 @@ QRiV/
 ```
 
 ---
-# Citation
+### Citation
 
-*(Will include the full citation here once our journal paper published.)*
+If you use this code or our method in your research, please cite our paper:
+
+* Li, M., Ma, Y., and Wang, L., Quantile regression with measurement errors. *Electronic Journal of Statistics*, 2026. (forthcoming): p. to appear.
+
+```bibtex
+@article{li2026quantile,
+  title={Quantile regression with measurement errors},
+  author={Li, Mushan and Ma, Yanyuan and Wang, Liqun},
+  journal={Electronic Journal of Statistics},
+  year={2026},
+  volume={forthcoming},
+  pages={to appear},
+  publisher={Institute of Mathematical Statistics and Bernoulli Society}
+}
