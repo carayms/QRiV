@@ -39,14 +39,15 @@ QRiV/
 If you use this code or our method in your research, please cite our paper:
 
 ```bibtex
-@article{10.1214/26-EJS2551,
-author = {Mushan Li and Yanyuan Ma and Liqun Wang},
-title = {{Quantile regression with measurement errors}},
-volume = {20},
-journal = {Electronic Journal of Statistics},
-number = {2},
-publisher = {Institute of Mathematical Statistics and Bernoulli Society},
-pages = {2943 -- 2963},
-year = {2026}
+@article{li2026quantile,
+  title={Quantile regression with measurement errors},
+  author={Li, Mushan and Ma, Yanyuan and Wang, Liqun},
+  journal={Electronic Journal of Statistics},
+  volume={20},
+  number={2},
+  pages={2943--2963},
+  year={2026},
+  publisher={The Institute of Mathematical Statistics and the Bernoulli Society}
 }
+
 
